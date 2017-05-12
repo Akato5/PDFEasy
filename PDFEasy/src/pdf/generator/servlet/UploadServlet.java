@@ -53,8 +53,9 @@ public class UploadServlet extends HttpServlet{
     
     
     /**
-     * Upon receiving file upload submission, parses the request to read
-     * upload data and saves the file on disk.
+     * Solo implementamos el método doPost porque los ficheros solo pueden venir vía post
+     * Se encarga de obtener los ficheros y campos enviados, y encaminar al controlador front
+     * 
      */
     protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	File responseFile = null;
@@ -102,6 +103,9 @@ public class UploadServlet extends HttpServlet{
     	}                
     }
     
+    /*
+     * Método encargado de devolver la respuesta al cliente
+     */
     public void responder(HttpServletRequest request,HttpServletResponse response, File responseFile) throws Exception{
     	FileInputStream in = null;
     	OutputStream out = null;
