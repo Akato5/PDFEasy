@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- Consider specifying the language of your content by adding the `lang` attribute to <html> -->
+<!--[if lt IE 7]> <html class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+	<meta charset="utf-8">
+
+	<!-- Always force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<!-- Put your title here! -->
+	<title></title>
+
+	<meta name="description" content="">
+
+	 <!-- Mobile viewport optimized: h5bp.com/viewport -->
+	<meta name="viewport" content="width=device-width">
+
+	<link href="style.css" rel="stylesheet">
+
+</head>
+
+<body ng-app="fupApp">
+
+	<!-- Prompt IE 6 and 7 users to install Chrome Frame:		chromium.org/developers/how-tos/chrome-frame-getting-started -->
+	<!--[if lt IE 8]>
+		<p class="chromeframe alert alert-warning">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
+	<![endif]-->
+
+	<header id="master-header" class="clearfix" role="banner">
+
+		<hgroup>
+			<h1 id="site-title"><a href="index.html" title="Your Site Name">Manipulador de PDF´s online</a></h1>
+			<h2 id="site-description">Une, divide, convierte ... PDF´s Easy</h2>
+		</hgroup>
+
+	</header> <!-- #master-header -->
+
+<div id="main" class="row clearfix" ng-controller="fupController">
+
+	<!-- Main navigation -->
+	<nav class="main-navigation clearfix span12" role="navigation">
+		<h3 class="assistive-text">Main menu</h3>
+		<ul>
+			<li class="current"><a href ng-click="uploadFiles()" >UPLOAD</a></li>	
+			<li>
+			<input type="hidden" id="accion" name="accion" value="" ng-model="formData.pdfopcion">
+			<input type="hidden" id="literal" name="literal" value="" ng-model="formData.literal">
+				<a href="about.html">Opciones</a>
+				<ul class="sub-menu">
+					<li><a href ng-click="formData.pdfopcion = 1; formData.literal = 'Unir PDF´s';">Unir PDF's</a></li>
+					<li><a href ng-click="formData.pdfopcion = 2; formData.literal = 'Dividir PDF´s';">Dividir PDF's</a></li>
+					<li><a href ng-click="formData.pdfopcion = 0; formData.literal = 'Convertir PDF´s a texto';">Convertir PDF's a texto</a></li>
+				</ul>
+			</li>
+			<li><a href ng-click="removeAll()" ng-disabled="!formData.pdfopcion || !files">Remove All</a></li>
+		</ul>
+	</nav> <!-- #main-navigation -->
+
+<div id="content" role="main" class="span7">
+
+	<article class="post hentry">
+
+		<header class="entry-header">
+			<h1 class="entry-title">
+				<a href="#" title="Post Heading" rel="bookmark">Ficheros elegidos:</a>
+			</h1>
+		</header> <!-- .entry-header -->
+
+		<div class="entry-content">		
+			<aside class="widget">
+					<div>
+						Queue progress:
+						<div class="progress" style="">
+							<div class="progress-bar" role="progressbar" ng-style="{ 'width': width}"></div>
+						</div>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="50%">Name</th>
+								<th >Size</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in files">
+								<th >
+									<ul>
+										<li><a href="#">{{ item.name }}</a></li> 
+
+									</ul>
+								</th>
+								<th>
+									<ul>
+									<a href="#">{{ item.size/1024/1024|number:2 }} MB</a></li>								
+									</ul>
+								</th>								
+							</tr>
+						</tbody>
+					</table>			
+				
+			</aside> <!-- .widget -->
+		</div> <!-- .entry-content -->
+
+		<footer class="entry-meta">
+			Estos son sus ficheros! Elija la opción deseada y pulse UPLOAD
+		</footer>
+
+
+</div> <!-- #content -->
+
+<div id="sidebar" role="complementary" class="span4">
+
+	<!-- Non-working search form -->
+	<h1>{{formData.literal}}<h1>
+	<form role="search" action="#" class="searchform">
+		<input type="file" file-input="files" id="file" name="file" multiple placeholder="Search..." onchange="angular.element(this).scope().getFileDetails(this)"/>
+	</form> <!-- .searchform.widget -->
+
+
+
+
+
+</div> <!-- #sidebar -->
+</div> <!-- #main -->
+
+	<!-- Load custom scripts -->
+	<script src="angular.js"></script>
+	<script src="controller.js"></script>
+</body>
+</html>
